@@ -1,25 +1,24 @@
 buildscript {
     repositories {
         mavenCentral()
+        google()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.1'
+        //classpath 'com.android.tools.build:gradle:1.0.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
-apply plugin: 'android-library'
+//apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 android {
-
-    compileSdkVersion 17
-    buildToolsVersion "21.1.2"
-
-    defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 17
-    }
-
+    //compileSdkVersion 17
+    //buildToolsVersion "21.1.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -30,3 +29,28 @@ android {
         }
     }
 }
+
+
+
+allprojects {
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url 'https://maven.google.com/'
+        }
+        google()
+        jcenter()
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}
+
+//task clean(type: Delete) {
+//    delete rootProject.buildDir
+//}
+
